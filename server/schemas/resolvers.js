@@ -21,14 +21,14 @@ const resolvers = {
 
             const userData = await User.findOne({ email });
             if (!userData) {
-                throw new AuthenticationError('Login unsuccessful, please login.');
+                throw new AuthenticationError('Email unsuccessful, please login.');
             }
-            const correctPw = await profile.isCorrectPassword(password);
+            const correctPw = await userData.isCorrectPassword(password);
             if (!correctPw) {
-                throw new AuthenticationError('Login unsuccessful, please login.');
+                throw new AuthenticationError('Password unsuccessful, please login.');
             }
-            const token = signToken(profile);
-            return { token, profile };
+            const token = signToken(userData);
+            return { token, userData };
         },
 
         addUser: async ( __ , { username, email, password }) => {
@@ -37,11 +37,11 @@ const resolvers = {
             return { token, userData };
         },
 
-        saveBook: async ( __ , { userId, bookData }, context) => {
+        saveBook: async ( __ , { input }, context) => {
             if (context.user) {
                 return User.findOneAndUpdate(
-                    { _id: userId },
-                    { $addToSet: { savedBooks: { book: bookData } } },
+                    { _id: context.user._id },
+                    { $addToSet: { savedBooks: input } },
                     { new: true, runValidators: true }
                 );
             }
