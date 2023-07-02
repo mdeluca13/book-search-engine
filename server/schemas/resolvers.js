@@ -48,11 +48,11 @@ const resolvers = {
             throw new AuthenticationError('Please login.');
         },
 
-        removeBook: async ( __ , { book }, context) => {
+        removeBook: async ( __ , { bookId }, context) => {
             if (context.user) {
                 const updateUser = await User.findOneAndUpdate(
                     { _id: context.user._id },
-                    { $pull: { savedBooks: book } },
+                    { $pull: { savedBooks: { bookId } } },
                     { new: true }
                 )
                 return updateUser;
