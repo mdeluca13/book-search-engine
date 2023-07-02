@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 import { useQuery, useMutation } from '@apollo/client';
 // import { getMe, deleteBook } from '../utils/API';
@@ -19,14 +19,14 @@ const SavedBooks = () => {
     }
 
     try {
-      const { data } = await removeBook({ variables: { bookId }});
+      await removeBook({ variables: { bookId }});
       removeBookId(bookId);
     } catch (err) {
       console.error(err);
     }
   };
 
-  if (!userDataLength) {
+  if (loading) {
     return <h2>LOADING...</h2>;
   }
 
