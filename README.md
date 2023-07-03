@@ -20,7 +20,7 @@ You will also have to install the package.json file through npm install.
 - You can save a book to your user by clicking "Save this Book!".
 - You can view your saved books by clicking "See Your Books"
 - You can delete a book from your user by clicking "Delete This Book!"
-- You can visit the deployed app [here](https://mdeluca-text-editor-54b25a117244.herokuapp.com/).
+- You can visit the deployed app [here](https://mdeluca-book-search-engine-2e2ce5f3b151.herokuapp.com/).
 
 ![Book Search Engine Homepage](./assets/images/book-search-engine.jpg)
 
