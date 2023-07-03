@@ -1,3 +1,4 @@
+// Importing necessary files
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
@@ -10,6 +11,7 @@ const AppNavbar = () => {
   // set modal display state
   const [showModal, setShowModal] = useState(false);
 
+  // Setting React display
   return (
     <>
       <Navbar bg='dark' variant='dark' expand='lg'>

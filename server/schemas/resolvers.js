@@ -1,3 +1,4 @@
+// Importing necessary files
 const { AuthenticationError } = require('apollo-server-express');
 const { User } = require('../models');
 const { signToken } = require('../utils/auth');
@@ -15,6 +16,7 @@ const resolvers = {
         },
     },
 
+    // Setting mutations for login, addUser, saveBook and removeBook
     Mutation: {
     
         login: async ( __ , { email, password }) => {

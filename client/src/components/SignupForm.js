@@ -1,9 +1,11 @@
+// Importing necessary files
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
+// Signup function
 const SignupForm = () => {
   const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
   const [validated] = useState(false);
@@ -32,6 +34,7 @@ const SignupForm = () => {
       event.stopPropagation();
     }
 
+    // Adding user and authentication
     try {
       const { data } = await addUser({
         variables: { ...userFormData }
@@ -41,6 +44,7 @@ const SignupForm = () => {
       console.error(err);
     }
 
+    // Setting user form data back to blank
     setUserFormData({
       username: '',
       email: '',
@@ -48,6 +52,7 @@ const SignupForm = () => {
     });
   };
 
+  // Setting React display
   return (
     <>
       {/* This is needed for the validation functionality above */}

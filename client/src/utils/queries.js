@@ -1,5 +1,7 @@
+// Importing necessary files
 import { gql } from '@apollo/client';
 
+// Setting query for logged in user
 export const GET_ME = gql`
     query me {
         me {

@@ -1,16 +1,18 @@
+// Importing necessary files
 import React, { useState, useEffect } from 'react';
 import { Container, Col, Form, Button, Card, Row } from 'react-bootstrap';
 import Auth from '../utils/auth';
 import { useMutation } from '@apollo/client';
 import { SAVE_BOOK } from '../utils/mutations';
-import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
+// Search books function
 const SearchBooks = () => {
   const [searchedBooks, setSearchedBooks] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
+  // Save book function
   const [saveBook] = useMutation(SAVE_BOOK);
 
   useEffect(() => {
@@ -24,8 +26,9 @@ const SearchBooks = () => {
       return false;
     }
 
+    // API call for books
     try {
-      const response = await searchGoogleBooks(searchInput);
+      const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}`);
 
       if (!response.ok) {
         throw new Error('something went wrong!');
@@ -48,6 +51,7 @@ const SearchBooks = () => {
     }
   };
 
+  // Save book function
   const handleSaveBook = async (bookId) => {
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -56,19 +60,16 @@ const SearchBooks = () => {
       return false;
     }
 
+    // Saving book
     try {
       const { data } = await saveBook( {variables: { input: { ...bookToSave}}});
-
-      // if (!response.ok) {
-      //   throw new Error('something went wrong!');
-      // }
-
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
       console.error(err);
     }
   };
 
+  // Setting React display
   return (
     <>
       <div className="text-light bg-dark p-5">

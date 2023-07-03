@@ -1,5 +1,7 @@
+// Importing necessary files
 const { gql } = require('apollo-server-express');
 
+// Adding query and mutation typeDefs
 const typeDefs = gql`
     type Query {
         me: User

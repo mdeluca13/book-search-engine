@@ -1,5 +1,7 @@
+// Importing necessary files
 import { gql } from '@apollo/client';
 
+// Setting mutations for Login user, add user, save book and delete book
 export const LOGIN_USER = gql`
     mutation login($email: String!, $password: String!) {
         login(email: $email, password: $password) {

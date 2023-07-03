@@ -1,23 +1,26 @@
+// Importing necessary files
 import React from 'react';
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 import { useQuery, useMutation } from '@apollo/client';
-// import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 import { GET_ME } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
 
+// Saved books function
 const SavedBooks = () => {
   const { loading , data } = useQuery(GET_ME);
   const userData = data?.me || {};
   const [removeBook] = useMutation(REMOVE_BOOK);
 
+  // Delete books function
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
     }
-
+    
+    // Remove book from db and local storage
     try {
       const { data } = await removeBook({ variables: { bookId }});
       removeBookId(bookId);
@@ -26,10 +29,12 @@ const SavedBooks = () => {
     }
   };
 
+  // If loading show loading
   if (loading) {
     return <h2>LOADING...</h2>;
   }
 
+  // Setting React display
   return (
     <>
       <div fluid className="text-light bg-dark p-5">
