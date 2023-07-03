@@ -1,7 +1,7 @@
 // Importing necessary files
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/book-search-engine', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/booksDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
